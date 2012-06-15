@@ -9,9 +9,11 @@
 # This provides for close-to-instant pretty output in case you need pictures.
 # - Uses mhonarc <www.mhonarc.org> for conversion.
 # - Currently invokes google-chrome for rendering, can be easily changed in open_url(message_file).
+# to use another browser, change the BROWSER constant.
 
 # work directory for the hook (stores .msg input and all outputs of the conversion)
 # when invoked it cleans up files older than a day. see: housekeeping_for_work_dir()
+BROWSER="google-chrome"
 $work_dir ||= '/tmp/sup-publish-hook/'
 
 # housekeeping routine for $work_dir
@@ -34,6 +36,7 @@ end
 def convert(message_filename)
     say "Converting #{message_filename}"
     log "Converting #{message_filename}"
+    raise "mhonarc not found on PATH" unless system "which mhonarc > /dev/null 2>1"
     system "cd #{$work_dir} && mhonarc -single #{message_filename.hash.abs()} 2> /dev/null > #{message_filename.hash.abs()}.html"
     log "Done #{message_filename}"
 end
@@ -42,7 +45,8 @@ end
 def open_url(message_filename)
     log "Opening #{message_filename}.html"
     say "Opening #{message_filename}.html"
-    system "cd #{$work_dir} && google-chrome #{$work_dir}/#{message_filename.hash.abs()}.html > /dev/null 2>&1 &"
+    raise "#{BROWSER} not found on PATH" unless system "which #{BROWSER} > /dev/null 2>1"
+    system "cd #{$work_dir} && #{BROWSER} #{$work_dir}/#{message_filename.hash.abs()}.html > /dev/null 2>&1 &"
 end
 
 def sanitize_filename(filename)
