@@ -14,14 +14,16 @@
 $browser ||= 'google-chrome'
 
 # work directory for the hook (stores .msg input and all outputs of the conversion)
-# when invoked it cleans up files older than a day. see: housekeeping_for_work_dir()
+# when the hook is invoked it attempts to clean up files older than a day.
+# see: housekeeping_for_work_dir
 $work_dir ||= '/tmp/sup-publish-hook/'
 
 
 # housekeeping routine for $work_dir
 def housekeeping_for_work_dir
-    amount_of_files=`find #{$work_dir}* -ctime 1 -type f | wc -l`.to_i
-    if is_manageable_work_dir? and amount_of_files > 0
+    amount_of files = 0
+    amount_of_files = `find #{$work_dir}* -ctime 1 -type f | wc -l`.to_i if is_manageable_work_dir?
+    if amount_of_files > 0
         log "Cleaning up #{amount_of_files} file(s) older then a day"
         system "find #{$work_dir}* -ctime 1 -type f | xargs rm > /dev/null 2>&1"
         log "Done cleaning up #{amount_of_files} file(s)"
