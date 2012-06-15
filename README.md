@@ -1,4 +1,4 @@
-My [sup mail](https://sup.rubyforge.org/) hooks.
+My [sup mail](http://sup.rubyforge.org/) hooks.
 ----------------------------------------
 
 I have been setting up and liking sup (sup-mail in Ubuntu) quite a bit lately.
