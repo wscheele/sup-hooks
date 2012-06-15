@@ -10,9 +10,11 @@
 # - Uses mhonarc <www.mhonarc.org> for conversion.
 # - Currently invokes google-chrome for rendering, can be easily changed in the BROWSER constant.
 
+# The exec to invoke when opening a converted html message.
+BROWSER="google-chrome"
+
 # work directory for the hook (stores .msg input and all outputs of the conversion)
 # when invoked it cleans up files older than a day. see: housekeeping_for_work_dir()
-BROWSER="google-chrome"
 $work_dir ||= '/tmp/sup-publish-hook/'
 
 # housekeeping routine for $work_dir
