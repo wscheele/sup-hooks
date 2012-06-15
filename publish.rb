@@ -8,8 +8,7 @@
 #
 # This provides for close-to-instant pretty output in case you need pictures.
 # - Uses mhonarc <www.mhonarc.org> for conversion.
-# - Currently invokes google-chrome for rendering, can be easily changed in open_url(message_file).
-# to use another browser, change the BROWSER constant.
+# - Currently invokes google-chrome for rendering, can be easily changed in the BROWSER constant.
 
 # work directory for the hook (stores .msg input and all outputs of the conversion)
 # when invoked it cleans up files older than a day. see: housekeeping_for_work_dir()
