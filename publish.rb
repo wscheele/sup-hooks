@@ -21,7 +21,7 @@ $work_dir ||= '/tmp/sup-publish-hook/'
 
 # housekeeping routine for $work_dir
 def housekeeping_for_work_dir
-    amount_of files = 0
+    amount_of_files = 0
     amount_of_files = `find #{$work_dir}* -ctime 1 -type f | wc -l`.to_i if is_manageable_work_dir?
     if amount_of_files > 0
         log "Cleaning up #{amount_of_files} file(s) older then a day"
@@ -59,6 +59,7 @@ def open_url message_filename
     say "Opening #{message_filename}.html"
     raise "#{$browser} not found on PATH" unless system "which #{$browser} > /dev/null 2>1"
     system "cd #{$work_dir} && #{$browser} #{$work_dir}/#{clean_filename(message_filename)}.html > /dev/null 2>&1 &"
+    system "wmctrl -a Chrome"
 end
 
 def sanitize_filename filename
